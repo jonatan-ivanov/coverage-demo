@@ -1,0 +1,5 @@
+apply plugin: 'jacoco'
+
+task jacoco {
+	dependsOn jacocoTestReport
+}
