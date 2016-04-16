@@ -23,13 +23,16 @@ dependencies {
 
 clover {
 	//You can get a free Clover license from Atlassian: https://www.atlassian.com/licensing/clover/#serverlicenses-4
-    licenseLocation = 'gradle/clover/clover.license'
+	//If clover does not find the license, try to remove the .gradle dir in your project folder (coverage-demo/.gradle)
+	licenseLocation = 'gradle/clover/clover.license'
     report { html = true }
 }
 
 task clover {
 	dependsOn cloverGenerateReport
 }
+//Uncomment the line below, run the clover task (will fail) and check the .class files in build/classes/main and main-bak
+//test.doFirst { throw new Exception('Clover hack to see the instrumented .class files') }
 
 eclipse {
 	classpath {
