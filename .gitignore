@@ -4,3 +4,4 @@ out
 *.iml
 *.ipr
 *.iws
+gradle/clover

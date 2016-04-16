@@ -22,6 +22,7 @@ dependencies {
 }
 
 clover {
+	//You can get a free Clover license from Atlassian: https://www.atlassian.com/licensing/clover/#serverlicenses-4
     licenseLocation = 'gradle/clover/clover.license'
     report { html = true }
 }
