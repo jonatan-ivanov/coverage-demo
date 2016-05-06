@@ -1,0 +1,13 @@
+task deploy {
+    dependsOn assemble
+}
+
+deploy << {
+    "java -jar $jar.archivePath".execute()
+    Thread.sleep(3000)
+}
+
+task undeploy << {
+    def pid = file('application.pid').text
+    "kill $pid".execute().waitFor()
+}

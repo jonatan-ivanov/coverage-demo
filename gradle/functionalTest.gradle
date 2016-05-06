@@ -1,0 +1,27 @@
+configurations {
+    functionalTest
+}
+
+sourceSets {
+    functionalTest {
+        java.srcDir file('src/functionalTest/java')
+        resources.srcDir file('src/functionalTest/resources')
+        compileClasspath = sourceSets.main.output + sourceSets.test.output + configurations.testRuntime + configurations.functionalTestCompile
+        runtimeClasspath = output + compileClasspath + configurations.functionalTestRuntime
+    }
+}
+
+task functionalTest(type: Test) {
+    description = 'Runs the functional tests.'
+    group = 'verification'
+    testClassesDir = sourceSets.functionalTest.output.classesDir
+    classpath = sourceSets.functionalTest.runtimeClasspath
+
+    reports.html.destination = "$reportsDir/functionalTest"
+
+    dependsOn deploy
+    finalizedBy undeploy
+    shouldRunAfter test
+}
+
+check.dependsOn functionalTest
