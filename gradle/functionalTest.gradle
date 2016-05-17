@@ -19,9 +19,40 @@ task functionalTest(type: Test) {
 
     reports.html.destination = "$reportsDir/functionalTest"
 
+    jacoco {
+        enabled = true
+        append = false
+        destinationFile = file("$buildDir/jacoco/functionalTest.exec")
+        classDumpFile = file("$buildDir/jacoco/functionalTestClassDumpFile")
+    }
+
     dependsOn deploy
     finalizedBy undeploy
     shouldRunAfter test
 }
-
 check.dependsOn functionalTest
+
+task jacocoFunctionalTestReport(type:JacocoReport) {
+    executionData functionalTest
+    sourceSets sourceSets.main
+
+    dependsOn functionalTest
+    mustRunAfter undeploy
+}
+functionalTest.finalizedBy jacocoFunctionalTestReport
+
+task jacocoMerge(type: JacocoMerge) {
+    executionData test, functionalTest
+    destinationFile = file("$buildDir/jacoco/merged.exec")
+
+    dependsOn jacocoTestReport, jacocoFunctionalTestReport
+}
+
+task mergedReport(type: JacocoReport) {
+    executionData jacocoMerge.destinationFile
+    sourceDirectories = files(sourceSets.main.java.srcDirs)
+    classDirectories = files(sourceSets.main.output.classesDir)
+
+    dependsOn jacocoMerge
+}
+check.dependsOn mergedReport

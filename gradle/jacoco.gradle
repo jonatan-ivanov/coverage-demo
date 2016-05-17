@@ -1,5 +1,25 @@
 apply plugin: 'jacoco'
 
-task jacoco {
-	dependsOn jacocoTestReport
+configurations {
+    jacocoAgent
 }
+
+dependencies {
+    jacocoAgent 'org.jacoco:org.jacoco.agent:0.7.1.201405082137'
+}
+
+task unZipJacocoAgent << {
+    def jacocoAgentPath = configurations.jacocoAgent.resolve().first()
+    copy {
+        from zipTree(jacocoAgentPath)
+        into "$buildDir/jacocoagent/unpacked"
+    }
+    copy {
+        from "$buildDir/jacocoagent/unpacked/jacocoagent.jar"
+        into "$buildDir/jacocoagent"
+    }
+    delete "$buildDir/jacocoagent/unpacked"
+}
+
+jacocoTestReport.dependsOn test
+test.finalizedBy jacocoTestReport

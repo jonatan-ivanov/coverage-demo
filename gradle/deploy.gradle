@@ -1,9 +1,11 @@
 task deploy {
-    dependsOn assemble
+    dependsOn assemble, unZipJacocoAgent
 }
 
 deploy << {
-    "java -jar $jar.archivePath".execute()
+    def JAVA_AGENT="-javaagent:$buildDir/jacocoagent/jacocoagent.jar=destfile=$buildDir/jacoco/functionalTest.exec"
+
+    "java $JAVA_AGENT -jar $jar.archivePath".execute()
     Thread.sleep(3000)
 }
 
