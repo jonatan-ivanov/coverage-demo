@@ -42,6 +42,10 @@ eclipse {
     }
 }
 
+task cleanAll {
+    dependsOn clean, cleanEclipse, cleanIdea, cleanIdeaWorkspace
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
