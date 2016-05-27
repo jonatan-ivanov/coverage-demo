@@ -1,19 +1,21 @@
+// 1. Get a Clover license, see below
+// 2. Uncomment applying the Clover plugin in build.gradle
+// 3. Run ./gradlew clover (will fail) and check the .class files in build/classes/main and main-bak
 apply plugin: 'com.bmuschko.clover'
 
 dependencies {
-	clover 'com.atlassian.clover:clover:4.1.1'
+    clover 'com.atlassian.clover:clover:4.1.1'
 }
 
 clover {
-	//You can get a free Clover license from Atlassian: https://www.atlassian.com/licensing/clover/#serverlicenses-4
-	//If clover does not find the license, try to remove the .gradle dir in your project folder (coverage-demo/.gradle)
-	licenseLocation = 'gradle/clover/clover.license'
+    //You can get a free Clover license from Atlassian: https://www.atlassian.com/licensing/clover/#serverlicenses-4
+    //If clover does not find the license, try to remove the .gradle dir in your project folder (coverage-demo/.gradle)
+    licenseLocation = 'gradle/clover/clover.license'
     report { html = true }
 }
 
 task clover {
-	dependsOn cloverGenerateReport
+    dependsOn cloverGenerateReport
 }
 
-//Uncomment the line below, run the clover task (will fail) and check the .class files in build/classes/main and main-bak
-//test.doFirst { throw new Exception('Clover hack to see the instrumented .class files') }
+test.doFirst { throw new Exception('Clover hack to see the instrumented .class files') }
