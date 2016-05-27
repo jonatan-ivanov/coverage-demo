@@ -1,0 +1,2 @@
+Demo project for an article: [Code coverage not only for Unit tests](https://github.com/jonatan-ivanov/articles/blob/master/Code_coverage_not_only_for_Unit_tests/Code_coverage_not_only_for_Unit_tests.md)  
+See the details in the [related section of the article](https://github.com/jonatan-ivanov/articles/blob/master/Code_coverage_not_only_for_Unit_tests/Code_coverage_not_only_for_Unit_tests.md#picking-the-right-coverage-tool)
