@@ -1,4 +1,4 @@
-#Offline instrumentation (Clover) demo project
+# Offline instrumentation (Clover) demo project
 
 This is a demo project to hack the Gradle Clover plugin in order to see the instrumented files.
 
